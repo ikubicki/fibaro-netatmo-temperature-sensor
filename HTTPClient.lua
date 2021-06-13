@@ -5,6 +5,7 @@ HTTPClient wrapper
 class 'HTTPClient'
 
 function HTTPClient:new(options)
+    self.debug = false
     if not options then
         options = {}
     end
@@ -13,7 +14,7 @@ function HTTPClient:new(options)
 end
 
 function HTTPClient:get(url, success, error, headers)
-    local client = net.HTTPClient({timeout = 10000})
+    local client = net.HTTPClient({timeout = 2000})
     if not headers then
         headers = {}
     end

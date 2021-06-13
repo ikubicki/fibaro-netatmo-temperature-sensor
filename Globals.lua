@@ -26,7 +26,6 @@ function Globals:set(name, value)
             name = name,
             value = json.encode(value)
         })
-        
     end
     if response ~= nil then
         if response.type == 'ERROR' then

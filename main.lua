@@ -29,15 +29,17 @@ function QuickApp:run()
 end
 
 function QuickApp:pullNetatmoData()
+
     local url = '/getstationsdata'
     self:updateView("button1", "text", self.i18n:get('please-wait'))
     if string.len(self.config:getDeviceID()) > 3 then
-        -- QuickApp:debug('Pulling data for device ' .. self.config:getDeviceID())
-        url = url .. '?device_id=' .. self.config:getDeviceID()
+        QuickApp:debug('Pulling data for device ' .. self.config:getDeviceID())
+        -- url = url .. '?device_id=' .. self.config:getDeviceID()
     else
-        -- QuickApp:debug('Pulling data')
+        QuickApp:debug('Pulling data')
     end
     local callback = function(response)
+        -- self:debug(response.data)
         local data = json.decode(response.data)
         if data.error and data.error.message then
             QuickApp:error(data.error.message)
@@ -95,8 +97,12 @@ function QuickApp:pullNetatmoData()
             self:error('Unable to retrieve sensor data')
         end
     end
+
+    local err = function(response)
+        self:error('Unable to receive station data: ' .. json.encode(respons))
+    end
     
-    self.http:get(url, callback, nil, self.auth:getHeaders({}))
+    self.http:get(url, callback, err, self.auth:getHeaders({}))
     
     return {}
 end

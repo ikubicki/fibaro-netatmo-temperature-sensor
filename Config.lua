@@ -87,28 +87,28 @@ function Config:init()
     local storedPassword = Globals:get('netatmo_password')
     local storedInterval = Globals:get('netatmo_interval')
     -- handling client ID
-    if string.len(self.clientID) < 4 and string.len(storedClientID) > 3 then
+    if storedClientID ~= nil and string.len(self.clientID) < 4 and string.len(storedClientID) > 3 then
         self.app:setVariable("Client ID", storedClientID)
         self.clientID = storedClientID
     elseif (storedClientID == nil and self.clientID) then -- or storedClientID ~= self.clientID then
         Globals:set('netatmo_client_id', self.clientID)
     end
     -- handling client secret
-    if string.len(self.clientSecret) < 4 and string.len(storedClientSecret) > 3 then
+    if storedClientSecret ~= nil and string.len(self.clientSecret) < 4 and string.len(storedClientSecret) > 3 then
         self.app:setVariable("Client Secret", storedClientSecret)
         self.clientSecret = storedClientSecret
     elseif (storedClientSecret == nil and self.clientSecret) then -- or storedClientSecret ~= self.clientSecret then
         Globals:set('netatmo_client_secret', self.clientSecret)
     end
     -- handling username
-    if string.len(self.username) < 4 and string.len(storedUsername) > 3 then
+    if storedUsername ~= nil and string.len(self.username) < 4 and string.len(storedUsername) > 3 then
         self.app:setVariable("Username", storedUsername)
         self.username = storedUsername
     elseif (storedUsername == nil and self.username) then -- or storedUsername ~= self.username then
         Globals:set('netatmo_username', self.username)
     end
     -- handling password
-    if string.len(self.password) < 4 and string.len(storedPassword) > 3 then
+    if storedPassword ~= nil and string.len(self.password) < 4 and string.len(storedPassword) > 3 then
         self.app:setVariable("Password", storedPassword)
         self.password = storedPassword
     elseif (storedPassword == nil and self.password) then -- or storedPassword ~= self.password then
